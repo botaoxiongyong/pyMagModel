@@ -1,2 +1,2 @@
 # pyMagModel
-magnetic field model based on sedimentary data, python
+magnetic field model based on sedimentary data, python, mySQL
