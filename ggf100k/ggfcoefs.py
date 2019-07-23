@@ -16,15 +16,27 @@ class CALS_coesf():
 
     def dataLoad(self, fAdres=None):
         fo = open(fAdres)
-        file = fo.readlines()
-        line1 = np.array(file[1].split()).astype(np.float64)
+        dfile = fo.readlines()
+        line1 = np.array(dfile[1].split()).astype(np.float64)
+        #print(line1)
         lm = line1[0]
         nm = line1[1]
         nspl = line1[2]
-        tknts = line1[3::]
-        gt = np.array(file[2].split()).astype(np.float64)
-        print(nspl,len(gt),len(gt)/nspl)
-        gt.shape = (303,120)
+        #print(file[2:204])
+        #tknts = line1[3::]
+        tknt = []
+        for i in np.arange(2,204):
+            tknt.extend(dfile[i].split())
+        tknts = np.array(tknt).astype(np.float64)
+
+        #gt = np.array(file[2].split()).astype(np.float64)
+        g = []
+        for i in np.arange(204,len(dfile)):
+            g.extend(dfile[i].split())
+        gt = np.array(g).astype(np.float64)
+        #print(len(gt))
+        #print(nspl,len(gt)/nspl)
+        gt.shape = (602,120)#nspl,len(gt)/nspl
         gt = gt.T
         fo.close()
         return lm,nm,nspl,tknts,gt
@@ -91,7 +103,7 @@ class CALS_coesf():
         return coefData
 
 def main():
-    fAdres = './CALS10k.2'
+    fAdres = './GGF100k'
     time = 1900
     coefs = CALS_coesf(fAdres=fAdres, time=time)
     print(coefs.coefData)
